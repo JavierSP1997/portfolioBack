@@ -1,0 +1,31 @@
+### Obtener todos los proyectos
+GET http://localhost:3000/api/proyectos
+Content-Type: application/json
+
+###
+
+### Crear un nuevo proyecto
+POST http://localhost:3000/api/proyectos
+Content-Type: application/json
+
+{
+  "title": "Nuevo Proyecto",
+  "description": "Descripción del proyecto",
+  "url": "http://miurl.com"
+}
+
+###
+
+### Obtener todas las habilidades
+GET http://localhost:3000/api/skills
+Content-Type: application/json
+
+###
+
+### Crear una nueva habilidad
+POST http://localhost:3000/api/skills
+Content-Type: application/json
+
+{
+  "name": "Node.js"
+}
