@@ -1,15 +1,12 @@
 const Project = require("../models/projects.model");
 
-const obtenerProyectos = async (req, res, next) => {
+const obtenerProyectos = async (req, res) => {
     try {
-        const projects = await Project.find().populate(
-            "title",
-            "description",
-            "url",
-        );
+        const projects = await Project.find();
         res.json(projects);
     } catch (error) {
-        next(error);
+        console.error("Error al obtener proyectos:", error);
+        res.status(500).json({ mensaje: "Error al obtener proyectos" });
     }
 };
 
@@ -26,7 +23,6 @@ const crearProyecto = async (req, res) => {
         await nuevoProyecto.save();
 
         res.status(201).json(nuevoProyecto);
-        proyecto;
     } catch (error) {
         console.error("Error al crear proyecto:", error);
         res.status(400).json({ mensaje: "Error al crear proyecto" });

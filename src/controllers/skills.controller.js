@@ -14,7 +14,6 @@ const obtenerSkills = async (req, res) => {
 
 const crearSkill = async (req, res) => {
     const { name } = req.body;
-
     if (!name || name.trim() === "") {
         return res
             .status(400)
@@ -22,8 +21,13 @@ const crearSkill = async (req, res) => {
     }
 
     try {
+        const skillExistente = await Skill.findOne({ name: name.trim() });
+        if (skillExistente) {
+            return res.status(400).json({ mensaje: "La habilidad ya existe" });
+        }
         const nuevaSkill = new Skill({ name: name.trim() });
         await nuevaSkill.save();
+
         res.status(201).json(nuevaSkill);
     } catch (error) {
         console.error("Error al crear habilidad:", error.message);

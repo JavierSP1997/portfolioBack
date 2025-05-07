@@ -1,4 +1,5 @@
-// Creation and configuration of the Express APP
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 
@@ -6,7 +7,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Route configuration
+// Conexión a la base de datos
+const conectarDB = require("./config/db.config");
+
+// Ruta de la API
 app.use("/api", require("./routes/api.routes"));
 
 // 404 handler
@@ -20,6 +24,12 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ message: err.message });
+});
+
+// Configuración para escuchar en el puerto
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
 
 module.exports = app;
