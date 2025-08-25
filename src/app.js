@@ -5,7 +5,14 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+// Configuración CORS para permitir solo tu frontend
+const allowedOrigins = ["https://portfoliojaviersancho.netlify.app"];
+app.use(cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
 
 // Conexión a la base de datos
 const conectarDB = require("./config/db.config");
